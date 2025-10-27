@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Dados iniciais
+let populacaoA = 80000;
+let populacaoB = 200000;
+
+// As taxas são convertidas para decimais (3% = 0.03, 1.5% = 0.015)
+const taxaCrescimentoA = 0.03;
+const taxaCrescimentoB = 0.015;
+
+let anos = 0;
+
+// O loop continuará executando ENQUANTO (while) a população A for MENOR que a B.
+// Quando A se tornar igual ou maior, o loop para.
+while (populacaoA < populacaoB) {
+    // 1. Calcula o crescimento do ano para o País A
+    // (populacaoA = populacaoA + (populacaoA * taxaCrescimentoA))
+    populacaoA += populacaoA * taxaCrescimentoA; 
+    
+    // 2. Calcula o crescimento do ano para o País B
+    // (populacaoB = populacaoB + (populacaoB * taxaCrescimentoB))
+    populacaoB += populacaoB * taxaCrescimentoB;
+
+    // 3. Incrementa o contador de anos
+    anos++;
+}
+
+console.log(`Serão necessários ${anos} anos para que a população do país A ultrapasse ou iguale a população do país B.`);
+console.log("--- População Final (após " + anos + " anos) ---");
+// Usamos Math.floor para exibir as populações como números inteiros
+console.log(`População A: ${Math.floor(populacaoA)}`);
+console.log(`População B: ${Math.floor(populacaoB)}`);
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+let nome = prompt("Informe seu nome:");
+while (nome.length <= 3) {
+  alert("Erro: O nome deve ter mais de 3 caracteres.");
+  nome = prompt("Informe seu nome novamente:");
+}
+
+let idade = Number(prompt("Informe sua idade:"));
+while (idade < 0 || idade > 150 || isNaN(idade)) {
+  alert("Erro: A idade deve estar entre 0 e 150.");
+  idade = Number(prompt("Informe sua idade novamente:"));
+}
+
+let salario = Number(prompt("Informe seu salário:"));
+while (salario <= 0 || isNaN(salario)) {
+  alert("Erro: O salário deve ser maior que 0.");
+  salario = Number(prompt("Informe seu salário novamente:"));
+}
+
+let sexo = prompt("Informe seu sexo: 'f' para feminino ou 'm' para masculino:");
+while (sexo !== "f" && sexo !== "m") {
+  alert("Erro: O sexo deve ser 'f' ou 'm'.");
+  sexo = prompt("Informe seu sexo novamente: 'f' ou 'm'");
+}
+
+let estadoCivil = prompt("Informe seu estado civil: 's' (solteiro), 'c' (casado), 'v' (viúvo), 'd' (divorciado):");
+while (estadoCivil !== "s" && estadoCivil !== "c" && estadoCivil !== "v" && estadoCivil !== "d") {
+  alert("Erro: Estado civil deve ser 's', 'c', 'v' ou 'd'.");
+  estadoCivil = prompt("Informe seu estado civil novamente:");
+}
+
+alert("Cadastro realizado com sucesso! 🎉");
+
+
+    </script>
+</body>
+</html>
