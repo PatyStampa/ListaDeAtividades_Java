@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR"> <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo Populacional</title> 
+</head>
+<body>
+
+
+    <h1>Calculadora de Crescimento Populacional</h1>
+    <p>Insira os dados e clique em "Calcular" para ver o resultado.</p>
+
+    <div class="container">
+        
+        <div class="bloco-pais">
+            <h3>País A (Menor População)</h3>
+            <div class="campo">
+                <label for="popA">População Inicial:</label>
+                <input type="number" id="popA" value="80000">
+            </div>
+            <div class="campo">
+                <label for="taxaA">Taxa de Crescimento (% ao ano):</label>
+                <input type="number" id="taxaA" step="0.01" value="3">
+            </div>
+        </div>
+        
+        <div class="bloco-pais">
+            <h3>País B (Maior População)</h3>
+            <div class="campo">
+                <label for="popB">População Inicial:</label>
+                <input type="number" id="popB" value="200000">
+            </div>
+            <div class="campo">
+                <label for="taxaB">Taxa de Crescimento (% ao ano):</label>
+                <input type="number" id="taxaB" step="0.01" value="1.5">
+            </div>
+        </div>
+
+        <button id="btnCalcular">Calcular</button>
+
+    </div>
+
+    <div id="erro" style="display: none;"></div>
+    <div id="resultado" style="display: none;"></div>
+
+
+    <script>
+               
+        // Seleciona os elementos da tela
+        const btnCalcular = document.getElementById("btnCalcular");
+        const divResultado = document.getElementById("resultado");
+        const divErro = document.getElementById("erro");
+
+        // Adiciona um "ouvinte" ao botão. A função 'calcular' será executada ao clique.
+        btnCalcular.addEventListener("click", calcular);
+
+        function calcular() {
+            // "Esconde" as caixas de mensagem antes de um novo cálculo
+            divResultado.style.display = "none";
+            divErro.style.display = "none";
+
+            // --- 1. LEITURA DOS DADOS ---
+            // Pega os valores dos inputs e converte para número (Float = com decimal)
+            let populacaoA = parseFloat(document.getElementById("popA").value);
+            let populacaoB = parseFloat(document.getElementById("popB").value);
+            let taxaA_percent = parseFloat(document.getElementById("taxaA").value);
+            let taxaB_percent = parseFloat(document.getElementById("taxaB").value);
+
+            // --- 2. VALIDAÇÃO DOS DADOS ---
+            // 'isNaN' verifica se o valor "Não é um Número" (ex: campo vazio)
+            if (isNaN(populacaoA) || isNaN(populacaoB) || isNaN(taxaA_percent) || isNaN(taxaB_percent)) {
+                mostrarErro("Erro: Todos os campos devem ser preenchidos com números.");
+                return; // Para a execução da função
+            }
+            if (populacaoA <= 0 || populacaoB <= 0) {
+                mostrarErro("Erro: As populações iniciais devem ser maiores que zero.");
+                return;
+            }
+            if (populacaoA >= populacaoB) {
+                mostrarErro("Erro: A População A já deve começar menor que a População B.");
+                return;
+            }
+            if (taxaA_percent <= taxaB_percent) {
+                mostrarErro("Erro: A taxa de crescimento do País A deve ser MAIOR que a do País B para que ele possa ultrapassá-lo.");
+                return;
+            }
+
+            // --- 3. CÁLCULO ---
+            // Converte as taxas de % para decimal (ex: 3% -> 0.03)
+            const taxaCrescimentoA = taxaA_percent / 100.0;
+            const taxaCrescimentoB = taxaB_percent / 100.0;
+            
+            let anos = 0;
+            
+            // Loop de cálculo (igual ao anterior)
+            while (populacaoA < populacaoB) {
+                populacaoA += populacaoA * taxaCrescimentoA; 
+                populacaoB += populacaoB * taxaCrescimentoB;
+                anos++;
+                
+                // Medida de segurança para evitar loops infinitos (caso a lógica falhe)
+                if (anos > 1000) {
+                    mostrarErro("Cálculo interrompido. O número de anos excedeu 1000. Verifique as taxas.");
+                    return; 
+                }
+            }
+
+            // --- 4. EXIBIÇÃO DO RESULTADO ---
+            // Limpa qualquer erro antigo
+            divErro.style.display = "none";
+            
+            // Monta a mensagem de sucesso
+            let mensagem = `Serão necessários <b>${anos} anos</b> para que a população do país A ultrapasse ou iguale a população do país B.<br><br>`;
+            mensagem += "<b>--- População Final (após " + anos + " anos) ---</b><br>";
+            mensagem += `População A (final): ${Math.floor(populacaoA)}<br>`;
+            mensagem += `População B (final): ${Math.floor(populacaoB)}`;
+            
+            // Mostra a caixa de resultado
+            divResultado.innerHTML = mensagem;
+            divResultado.style.display = "block";
+        }
+
+        // Função auxiliar para mostrar erros
+        function mostrarErro(mensagem) {
+            divErro.innerHTML = mensagem;
+            divErro.style.display = "block";
+            divResultado.style.display = "none"; // Esconde o resultado se deu erro
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imprimir na Tela</title>
+    
+</head>
+<body>
+
+    <h1>Exercício: Imprimindo Números na Tela</h1>
+
+    <h2>Números de 1 a 20 (um abaixo do outro):</h2>
+    <div id="resultadoAbaixo"></div>
+
+
+    <h2>Números de 1 a 20 (um ao lado do outro):</h2>
+    <div id="resultadoLadoALado"></div>
+
+
+    <script>
+        
+        // --- Parte 1: Um abaixo do outro ---
+
+        // 1. Seleciona o "recipiente" (a div) que criamos no HTML
+        const divAbaixo = document.getElementById("resultadoAbaixo");
+
+        for (let i = 1; i <= 20; i++) {
+            // 2. Adiciona o número e uma tag de quebra de linha <br>
+            // Usamos "+=" para ADICIONAR ao conteúdo, e não apagar o anterior
+            divAbaixo.innerHTML += i + "<br>";
+        }
+
+
+        // --- Parte 2: Um ao lado do outro ---
+
+        // 1. Seleciona o outro "recipiente"
+        const divLado = document.getElementById("resultadoLadoALado");
+        
+        // 2. Cria a string primeiro (igual ao exemplo anterior)
+        let linha = "";
+        for (let i = 1; i <= 20; i++) {
+            linha += i + " ";
+        }
+
+        // 3. Insere a string completa de uma só vez no recipiente
+        divLado.innerHTML = linha;
+
+    </script>
+
+</body>
+</html>
